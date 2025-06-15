@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Commande } from '../commandes/commande.entity';
 
 @Entity()
 export class Utilisateur {
@@ -19,4 +20,7 @@ export class Utilisateur {
 
   @Column({ default: 0 })
   pointsFidelite: number;
+
+  @OneToMany(() => Commande, (commande) => commande.utilisateur)
+  commandes: Commande[]; //liste des commandes de l’utilisateur
 }
