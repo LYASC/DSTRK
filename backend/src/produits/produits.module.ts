@@ -11,7 +11,7 @@ import { RoleGuard } from '../auth/role.guard';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Produit]),
-    ConfigModule, // ✅ Ajouté
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

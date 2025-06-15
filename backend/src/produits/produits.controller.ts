@@ -23,6 +23,11 @@ export class ProduitsController {
     return this.serviceProduits.listerProduitsActifs();
   }
 
+  @Get(':id')
+  getProduit(@Param('id', ParseIntPipe) id: number) {
+    return this.serviceProduits.afficherProduit(id);
+  }
+
   @UseGuards(JwtGuard, RoleGuard)
   @Role('admin')
   @Post()
