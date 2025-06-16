@@ -10,10 +10,9 @@ export class CommandesController {
 
   @Post()
   @UseGuards(JwtGuard, RoleGuard)
-  @Role('client') //Uniquement les clients peuvent commander
+  @Role('client')
   creerCommande(
-    @Body()
-    donnees: { produits: { produitId: number; quantite: number }[] },
+    @Body() donnees: { produits: { produitId: number; quantite: number }[] },
     @Req() requete,
   ) {
     return this.serviceCommandes.creerCommande(

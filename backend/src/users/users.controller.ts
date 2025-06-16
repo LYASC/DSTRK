@@ -39,4 +39,14 @@ export class UsersController {
       utilisateur: requete.utilisateur,
     };
   }
+
+  @UseGuards(JwtGuard, RoleGuard)
+  @Role('client')
+  @Get('test-client')
+  testClient(@Req() req) {
+    return {
+      message: 'Bienvenue client',
+      utilisateur: req.utilisateur,
+    };
+  }
 }
