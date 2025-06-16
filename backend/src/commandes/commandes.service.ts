@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Commande } from './commande.entity';
-import { Repository } from 'typeorm';
-import { Produit } from '../produits/produit.entity';
 import { CommandeProduit } from './commande-produit.entity';
+import { Produit } from '../produits/produit.entity';
 import { Utilisateur } from '../users/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CommandesService {
@@ -59,5 +59,37 @@ export class CommandesService {
       commandeId: commande.id,
       total,
     };
+  }
+
+  async listerToutesLesCommandes() {
+    return this.repoCommandes.find({
+      relations: [
+        'commandeProduits',
+        'commandeProduits.produit',
+        'utilisateur',
+      ],
+      order: { date: 'DESC' },
+    });
+  }
+
+  async listerCommandesDuClient(utilisateurId: number) {
+    return this.repoCommandes.find({
+      where: { utilisateur: { id: utilisateurId } },
+      relations: ['commandeProduits', 'commandeProduits.produit'],
+      order: { date: 'DESC' },
+    });
+  }
+
+  async mettreAJourStatut(commandeId: number, nouveauStatut: string) {
+    const commande = await this.repoCommandes.findOne({
+      where: { id: commandeId },
+    });
+
+    if (!commande) {
+      throw new NotFoundException('Commande introuvable');
+    }
+
+    commande.statut = nouveauStatut;
+    return this.repoCommandes.save(commande);
   }
 }

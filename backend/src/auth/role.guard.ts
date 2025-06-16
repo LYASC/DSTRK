@@ -17,7 +17,7 @@ export class RoleGuard implements CanActivate {
     );
 
     const requete = context.switchToHttp().getRequest();
-    const utilisateur = requete.utilisateur;
+    const utilisateur = requete['utilisateur'];
 
     if (!roleAttendu) return true;
 
