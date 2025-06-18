@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProduitsModule } from './produits/produits.module';
 import { CommandesModule } from './commandes/commandes.module';
+import { CollectionsModule } from './collections/collections.module';
+import { VotesModule } from './votes/votes.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { CommandesModule } from './commandes/commandes.module';
     UsersModule,
     ProduitsModule,
     CommandesModule,
+    CollectionsModule,
+    VotesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
