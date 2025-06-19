@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Commande } from '../commandes/commande.entity';
+import { Post } from '../posts/post.entity';
+import { Commentaire } from '../commentaires/commentaire.entity';
 
 @Entity()
 export class Utilisateur {
@@ -23,4 +25,10 @@ export class Utilisateur {
 
   @OneToMany(() => Commande, (commande) => commande.utilisateur)
   commandes: Commande[]; //liste des commandes de l’utilisateur
+
+  @OneToMany(() => Post, (post) => post.utilisateur)
+  posts: Post[];
+
+  @OneToMany(() => Commentaire, (commentaire) => commentaire.utilisateur)
+  commentaires: Commentaire[];
 }

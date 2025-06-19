@@ -8,6 +8,8 @@ import { ProduitsModule } from './produits/produits.module';
 import { CommandesModule } from './commandes/commandes.module';
 import { CollectionsModule } from './collections/collections.module';
 import { VotesModule } from './votes/votes.module';
+import { PostsModule } from './posts/posts.module';
+import { CommentairesModule } from './commentaires/commentaires.module';
 
 @Module({
   imports: [
@@ -27,6 +29,10 @@ import { VotesModule } from './votes/votes.module';
     CommandesModule,
     CollectionsModule,
     VotesModule,
+    PostsModule,
+    CommentairesModule,
+    PostsModule,
+    CommentairesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
