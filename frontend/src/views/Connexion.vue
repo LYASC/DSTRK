@@ -96,7 +96,7 @@ async function seConnecter() {
     }
 
     localStorage.setItem("token", donnees.jeton);
-    router.push("/mon-compte");
+    router.push("/mon-espace-client");
   } catch (erreur) {
     messageErreur.value = erreur.message;
   }

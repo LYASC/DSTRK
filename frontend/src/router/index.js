@@ -39,6 +39,12 @@ const routes = [
     component: MonCompte,
   },
   {
+    path: "/mon-espace-client",
+    name: "MonEspaceClient",
+    component: () => import("@/views/MonEspaceClient.vue"),
+  },
+
+  {
     path: "/communaute",
     name: "Communaute",
     component: Communaute,
