@@ -1,13 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-// ✅ Chemins corrigés avec @ au lieu de /
 import Connexion from "@/views/Connexion.vue";
 import InscriptionEtape1 from "@/views/InscriptionEtape1.vue";
 import InscriptionEtape2 from "@/views/InscriptionEtape2.vue";
 import InscriptionEtape3 from "@/views/InscriptionEtape3.vue";
-import MonCompte from "@/views/MonCompte.vue";
-import Communaute from "@/views/Communaute.vue";
-
+import MonProfile from "@/views/MonProfile.vue";
 const routes = [
   {
     path: "/",
@@ -34,20 +31,24 @@ const routes = [
     component: InscriptionEtape3,
   },
   {
-    path: "/mon-compte",
-    name: "MonCompte",
-    component: MonCompte,
+    path: "/mon-profile",
+    name: "MonProfile",
+    component: MonProfile,
   },
   {
     path: "/mon-espace-client",
     name: "MonEspaceClient",
     component: () => import("@/views/MonEspaceClient.vue"),
   },
-
   {
     path: "/communaute",
     name: "Communaute",
-    component: Communaute,
+    component: () => import("@/views/Communaute.vue"),
+  },
+  {
+    path: "/post/:id",
+    name: "CommentairesPost",
+    component: () => import("@/views/CommentairesPost.vue"),
   },
 ];
 

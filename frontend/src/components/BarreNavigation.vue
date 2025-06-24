@@ -10,7 +10,10 @@
         </RouterLink>
       </li>
       <li>
-        <RouterLink to="/mon-compte" class="flex flex-col items-center text-sm">
+        <RouterLink
+          to="/mon-profile"
+          class="flex flex-col items-center text-sm"
+        >
           <span class="material-icons">person</span>
           Mon Compte
         </RouterLink>

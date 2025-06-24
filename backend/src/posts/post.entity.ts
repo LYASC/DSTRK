@@ -6,7 +6,7 @@ import {
   OneToMany,
   CreateDateColumn,
 } from 'typeorm';
-import { Utilisateur } from '../users/user.entity';
+import { Utilisateur } from '../users/user.entity'; // ✔️ Corrigé pour cohérence
 import { Commentaire } from '../commentaires/commentaire.entity';
 
 @Entity()
@@ -14,7 +14,7 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true }) // ✔️ Pour les textes plus longs
   texte: string;
 
   @Column({ nullable: true })
@@ -23,11 +23,13 @@ export class Post {
   @CreateDateColumn()
   date: Date;
 
-  @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.posts)
+  @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.posts, {
+    onDelete: 'CASCADE', // ✔️ Supprime les posts si l'utilisateur est supprimé
+  })
   utilisateur: Utilisateur;
 
   @OneToMany(() => Commentaire, (commentaire) => commentaire.post, {
-    cascade: true,
+    cascade: true, // ✔️ Supprime les commentaires si le post est supprimé
   })
   commentaires: Commentaire[];
 }

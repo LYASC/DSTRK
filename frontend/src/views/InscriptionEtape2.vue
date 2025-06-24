@@ -6,51 +6,57 @@
     <img src="/logo-dstrk.png" alt="Logo DSTRK" class="w-48 mb-6" />
 
     <!-- Titre -->
-    <h1 class="text-xl font-titre font-semibold uppercase mb-4 text-center">
-      INSCRIPTION – ÉTAPE 2 / 3
+    <h1 class="text-xl font-titre font-semibold uppercase mb-6 text-center">
+      INSCRIPTION
     </h1>
 
     <!-- Étapes -->
-    <EtapesInscription :etape-active="2" />
+    <div class="flex space-x-3 mb-8">
+      <span
+        class="w-8 h-8 flex items-center justify-center rounded-full border-2 border-black text-black"
+        >1</span
+      >
+      <span
+        class="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white"
+        >2</span
+      >
+      <span
+        class="w-8 h-8 flex items-center justify-center rounded-full border-2 border-black text-black"
+        >3</span
+      >
+    </div>
 
     <!-- Formulaire -->
-    <form
-      @submit.prevent="passerEtapeSuivante"
-      class="w-full max-w-sm flex flex-col gap-6"
-    >
-      <ChampFormulaire
-        v-model="form.nom"
-        name="nom"
-        type="text"
-        label="Nom"
-        autocomplete="family-name"
-        required
-      />
+    <form @submit.prevent="validerEtape" class="w-full max-w-md space-y-6">
+      <div>
+        <label for="motDePasse" class="block mb-1 font-semibold"
+          >Mot de passe</label
+        >
+        <input
+          id="motDePasse"
+          v-model="motDePasse"
+          type="password"
+          placeholder="Mot de passe"
+          class="champ"
+          required
+        />
+      </div>
 
-      <ChampFormulaire
-        v-model="form.prenom"
-        name="prenom"
-        type="text"
-        label="Prénom"
-        autocomplete="given-name"
-        required
-      />
+      <div>
+        <label for="confirmation" class="block mb-1 font-semibold"
+          >Confirmation du mot de passe</label
+        >
+        <input
+          id="confirmation"
+          v-model="confirmation"
+          type="password"
+          placeholder="Confirmation du mot de passe"
+          class="champ"
+          required
+        />
+      </div>
 
-      <ChampFormulaire
-        v-model="form.pseudo"
-        name="pseudo"
-        type="text"
-        label="Nom d'utilisateur"
-        autocomplete="username"
-        required
-      />
-
-      <button
-        type="submit"
-        class="w-full bg-black text-white py-2 rounded-full font-medium hover:opacity-90 mt-2"
-      >
-        Suivant
-      </button>
+      <button type="submit" class="btn-noir w-full mt-6">Suivant</button>
     </form>
   </div>
 </template>
@@ -58,19 +64,36 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import EtapesInscription from "@/components/EtapesInscription.vue";
-import ChampFormulaire from "@/components/ChampFormulaire.vue";
 
+const motDePasse = ref("");
+const confirmation = ref("");
 const router = useRouter();
 
-const form = ref({
-  nom: "",
-  prenom: "",
-  pseudo: "",
-});
+const validerEtape = () => {
+  if (motDePasse.value !== confirmation.value) {
+    alert("Les mots de passe ne correspondent pas.");
+    return;
+  }
 
-function passerEtapeSuivante() {
-  console.log("Données étape 2 :", form.value);
-  router.push("/inscription/etape3");
-}
+  localStorage.setItem("motDePasseTemp", motDePasse.value);
+  router.push("/inscription/etape-3");
+};
 </script>
+
+<style scoped lang="postcss">
+.champ {
+  @apply w-full border-2 border-black rounded-md px-4 py-2 text-sm outline-none;
+}
+
+.btn-noir {
+  @apply bg-black text-white py-3 px-6 rounded-full font-semibold text-sm hover:opacity-90 transition;
+}
+
+.font-titre {
+  font-family: "Unbounded", sans-serif;
+}
+
+.font-texte {
+  font-family: "ABCFavoritMono-Book", monospace;
+}
+</style>

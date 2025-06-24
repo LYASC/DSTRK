@@ -14,6 +14,7 @@ export class UsersService {
   ) {}
 
   async inscription(donnees: {
+    prenom: string;
     nom: string;
     email: string;
     motDePasse: string;
@@ -29,6 +30,7 @@ export class UsersService {
     const motDePasseChiffre = await bcrypt.hash(donnees.motDePasse, 10);
 
     const nouvelUtilisateur = this.depotUtilisateurs.create({
+      prenom: donnees.prenom,
       nom: donnees.nom,
       email: donnees.email,
       motDePasse: motDePasseChiffre,
@@ -69,10 +71,38 @@ export class UsersService {
       jeton,
       utilisateur: {
         id: utilisateur.id,
+        prenom: utilisateur.prenom,
         nom: utilisateur.nom,
         email: utilisateur.email,
         role: utilisateur.role,
       },
     };
+  }
+
+  async mettreAJourProfil(id: number, donnees: Partial<Utilisateur>) {
+    delete donnees.role;
+    delete donnees.pointsFidelite;
+    delete donnees.motDePasse;
+    delete donnees.id;
+
+    await this.depotUtilisateurs.update(id, donnees);
+    return { message: 'Profil mis à jour avec succès' };
+  }
+
+  async supprimerCompte(id: number) {
+    await this.depotUtilisateurs.delete(id);
+    return { message: 'Votre compte a été supprimé.' };
+  }
+
+  async trouverParId(id: number): Promise<Utilisateur> {
+    const utilisateur = await this.depotUtilisateurs.findOne({
+      where: { id },
+    });
+
+    if (!utilisateur) {
+      throw new UnauthorizedException('Utilisateur non trouvé');
+    }
+
+    return utilisateur;
   }
 }

@@ -22,13 +22,13 @@ export class JwtGuard implements CanActivate {
     const token = authorization.split(' ')[1];
 
     try {
-      const utilisateur = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,
       });
 
-      requete['utilisateur'] = utilisateur; // ✅ Pour l’utiliser ensuite dans les contrôleurs
+      requete['utilisateur'] = payload;
       return true;
-    } catch (err) {
+    } catch {
       throw new UnauthorizedException('Token invalide ou expiré');
     }
   }

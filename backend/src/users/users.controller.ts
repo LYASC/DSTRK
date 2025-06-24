@@ -1,8 +1,18 @@
-import { Controller, Post, Body, Get, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Req,
+  UseGuards,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtGuard } from '../auth/jwt.guard';
 import { RoleGuard } from '../auth/role.guard';
 import { Role } from '../auth/role.decorator';
+import { Utilisateur } from './user.entity';
 
 @Controller('utilisateurs')
 export class UsersController {
@@ -10,7 +20,13 @@ export class UsersController {
 
   @Post('inscription')
   inscrire(
-    @Body() donnees: { nom: string; email: string; motDePasse: string },
+    @Body()
+    donnees: {
+      prenom: string;
+      nom: string;
+      email: string;
+      motDePasse: string;
+    },
   ) {
     return this.serviceUtilisateurs.inscription(donnees);
   }
@@ -22,14 +38,30 @@ export class UsersController {
 
   @UseGuards(JwtGuard)
   @Get('mon-profil')
-  obtenirProfil(@Req() requete) {
+  async obtenirProfil(@Req() requete) {
+    const utilisateurComplet = await this.serviceUtilisateurs.trouverParId(
+      requete.utilisateur.id,
+    );
     return {
       message: 'Voici votre profil',
-      utilisateur: requete.utilisateur,
+      utilisateur: utilisateurComplet,
     };
   }
 
-  // Route protégée par JWT + rôle
+  @UseGuards(JwtGuard)
+  @Patch('mon-profil')
+  modifierProfil(@Req() requete, @Body() donnees: Partial<Utilisateur>) {
+    const utilisateur = requete.utilisateur;
+    return this.serviceUtilisateurs.mettreAJourProfil(utilisateur.id, donnees);
+  }
+
+  @UseGuards(JwtGuard)
+  @Delete('mon-compte')
+  supprimerMonCompte(@Req() requete) {
+    const utilisateur = requete.utilisateur;
+    return this.serviceUtilisateurs.supprimerCompte(utilisateur.id);
+  }
+
   @UseGuards(JwtGuard, RoleGuard)
   @Role('admin')
   @Get('admin-seulement')

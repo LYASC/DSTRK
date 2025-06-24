@@ -14,16 +14,26 @@ export class Commentaire {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('text')
   contenu: string;
 
   @CreateDateColumn()
   date: Date;
 
-  @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.commentaires)
+  @Column({ default: false })
+  modifie: boolean;
+
+  @Column({ type: 'timestamp', nullable: true })
+  dateModification: Date;
+
+  @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.commentaires, {
+    onDelete: 'CASCADE',
+  })
   utilisateur: Utilisateur;
 
-  @ManyToOne(() => Post, (post) => post.commentaires)
+  @ManyToOne(() => Post, (post) => post.commentaires, {
+    onDelete: 'CASCADE',
+  })
   post: Post;
 
   @ManyToOne(() => Commentaire, (commentaire) => commentaire.reponses, {
@@ -36,10 +46,4 @@ export class Commentaire {
     cascade: true,
   })
   reponses: Commentaire[];
-
-  @Column({ default: false })
-  modifie: boolean;
-
-  @Column({ type: 'timestamp', nullable: true })
-  dateModification: Date;
 }

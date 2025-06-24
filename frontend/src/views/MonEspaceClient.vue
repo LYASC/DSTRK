@@ -36,11 +36,11 @@
       </router-link>
 
       <router-link
-        to="/mon-compte"
+        to="/mon-profile"
         class="flex flex-col items-center text-center"
       >
-        <img src="" alt="Compte" class="w-10 mb-1" />
-        <span>Mon compte</span>
+        <img src="" alt="Profile" class="w-10 mb-1" />
+        <span>Mon Profile</span>
       </router-link>
 
       <router-link
