@@ -46,7 +46,7 @@
 
         <img
           v-if="post.imageUrl"
-          :src="post.imageUrl"
+          :src="`${API}${post.imageUrl}`"
           alt="Image du post"
           class="w-full rounded-md mt-2"
         />
