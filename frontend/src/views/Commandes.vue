@@ -73,11 +73,14 @@ onMounted(async () => {
   if (!token) return;
 
   try {
-    const res = await axios.get("http://localhost:8000/api/commandes", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.get(
+      `${import.meta.env.VITE_API_URL}/api/commandes`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     commandes.value = res.data.commandes || [];
   } catch (err) {
     console.error("Erreur chargement commandes", err);
