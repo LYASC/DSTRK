@@ -133,7 +133,7 @@ onMounted(async () => {
 
   try {
     const response = await axios.get(
-      "${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil",
+      `${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -194,7 +194,7 @@ const enregistrerModifications = async () => {
   try {
     const token = localStorage.getItem("token");
     await axios.patch(
-      "${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil",
+      `${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil`,
       donneesModifiees,
       {
         headers: { Authorization: `Bearer ${token}` },

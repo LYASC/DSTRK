@@ -111,7 +111,7 @@ onMounted(() => {
     router.push("/connexion");
   } else {
     // Requête au backend pour récupérer les infos de l’utilisateur connecté
-    fetch("${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil", {
+    fetch(`${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

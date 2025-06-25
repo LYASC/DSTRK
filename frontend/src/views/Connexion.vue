@@ -78,7 +78,7 @@ const router = useRouter();
 async function seConnecter() {
   try {
     const reponse = await fetch(
-      "${import.meta.env.VITE_API_URL}/utilisateurs/connexion",
+      `${import.meta.env.VITE_API_URL}/utilisateurs/connexion`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
