@@ -14,6 +14,9 @@ async function bootstrap() {
   // ➕ Cette ligne permet d'accéder aux images depuis le front
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+  console.log(`Application démarrée sur http://localhost:${port}`);
 }
+
 bootstrap();
