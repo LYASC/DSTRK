@@ -51,7 +51,7 @@
 
 <script setup>
 import { defineProps } from "vue";
-const API = "http://localhost:3000";
+const API = "${import.meta.env.VITE_API_URL}";
 const props = defineProps({
   post: Object,
   utilisateurConnecte: Object,

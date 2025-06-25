@@ -111,7 +111,7 @@ onMounted(() => {
     router.push("/connexion");
   } else {
     // Requête au backend pour récupérer les infos de l’utilisateur connecté
-    fetch("http://localhost:3000/utilisateurs/mon-profil", {
+    fetch("${import.meta.env.VITE_API_URL}/utilisateurs/mon-profil", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

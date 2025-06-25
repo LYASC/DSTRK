@@ -47,7 +47,7 @@ import axios from "axios";
 import CartePost from "../components/CartePost.vue";
 import ModaleCreationPost from "../components/ModaleCreationPost.vue";
 
-const API = "http://localhost:3000";
+const API = "${import.meta.env.VITE_API_URL}";
 const posts = ref([]);
 const utilisateur = ref({});
 const afficherModale = ref(false);
