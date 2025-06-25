@@ -1,13 +1,14 @@
 import {
   Controller,
-  Post as PostMethod,
+  Post,
   Delete,
-  Body,
+  Patch,
+  Get,
   Param,
+  Body,
   Req,
   UseGuards,
-  Get,
-  Patch,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CommentairesService } from './commentaires.service';
 import { JwtGuard } from '../auth/jwt.guard';
@@ -17,45 +18,48 @@ export class CommentairesController {
   constructor(private readonly commentairesService: CommentairesService) {}
 
   @UseGuards(JwtGuard)
-  @PostMethod(':postId')
-  commenter(
-    @Param('postId') postId: number,
+  @Post(':postId')
+  async ajouterCommentaire(
+    @Param('postId', ParseIntPipe) postId: number,
+    @Body() body: { contenu: string; parentId?: number },
     @Req() req,
-    @Body() body: { contenu: string; parentId?: number }, // 👈 parentId facultatif
   ) {
     return this.commentairesService.creerCommentaire(
       req.utilisateur.id,
       postId,
       body.contenu,
-      body.parentId,
+      body.parentId, // utilisé si c'est une réponse
     );
   }
 
   @UseGuards(JwtGuard)
   @Delete(':id')
-  supprimer(@Req() req, @Param('id') id: number) {
+  async supprimerCommentaire(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req,
+  ) {
     return this.commentairesService.supprimerCommentaire(
       id,
       req.utilisateur.id,
     );
   }
 
-  @Get('post/:postId')
-  getCommentairesParPost(@Param('postId') postId: number) {
-    return this.commentairesService.getCommentairesParPost(postId);
-  }
-
   @UseGuards(JwtGuard)
   @Patch(':id')
-  modifier(
-    @Req() req,
-    @Param('id') id: number,
+  async modifierCommentaire(
+    @Param('id', ParseIntPipe) id: number,
     @Body() body: { contenu: string },
+    @Req() req,
   ) {
     return this.commentairesService.modifierCommentaire(
       id,
       req.utilisateur.id,
       body.contenu,
     );
+  }
+
+  @Get('post/:postId')
+  async getCommentairesParPost(@Param('postId', ParseIntPipe) postId: number) {
+    return this.commentairesService.getCommentairesParPost(postId);
   }
 }

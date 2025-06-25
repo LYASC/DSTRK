@@ -1,22 +1,13 @@
 <template>
   <div class="min-h-screen bg-white text-black font-texte px-4 py-6">
     <!-- Barre du haut -->
-    <div class="flex justify-between items-center mb-6">
-      <button @click="toggleMenu">
-        <img src="" alt="Menu" class="w-8" />
-      </button>
-      <a
-        href="https://www.dstrk.fr"
-        class="bg-black text-white px-4 py-2 rounded-full text-sm"
-      >
-        Site marchand
-      </a>
+    <div class="flex justify-center items-center mb-4">
       <img src="/logo-dstrk.png" alt="Logo" class="w-12" />
     </div>
 
     <!-- Titre -->
     <h1
-      class="text-2xl font-titre font-bold uppercase text-center leading-tight"
+      class="text-xl font-titre font-bold uppercase text-center leading-tight"
     >
       Bienvenue sur<br />
       votre espace client

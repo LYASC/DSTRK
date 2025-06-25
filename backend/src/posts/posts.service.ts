@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 export class PostsService {
   constructor(@InjectRepository(Post) private postRepo: Repository<Post>) {}
 
+  // ✅ Créer un post
   async creerPost(utilisateurId: number, texte?: string, imageUrl?: string) {
     const post = this.postRepo.create({
       texte,
@@ -20,6 +21,7 @@ export class PostsService {
     return this.postRepo.save(post);
   }
 
+  // ✅ Liste des posts
   async listerPosts() {
     return this.postRepo.find({
       relations: ['utilisateur', 'commentaires', 'commentaires.utilisateur'],
@@ -32,6 +34,17 @@ export class PostsService {
     });
   }
 
+  // ✅ Détail d’un post
+  async getById(id: number) {
+    const post = await this.postRepo.findOne({
+      where: { id },
+      relations: ['utilisateur'],
+    });
+    if (!post) throw new NotFoundException('Post introuvable');
+    return post;
+  }
+
+  // ✅ Supprimer un post
   async supprimerPost(postId: number, utilisateurId: number) {
     const post = await this.postRepo.findOne({
       where: { id: postId },
@@ -43,6 +56,7 @@ export class PostsService {
     return this.postRepo.remove(post);
   }
 
+  // ✅ Modifier un post
   async modifierPost(
     postId: number,
     utilisateurId: number,

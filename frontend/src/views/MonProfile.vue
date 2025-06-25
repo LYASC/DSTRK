@@ -1,8 +1,12 @@
 <template>
   <div class="bg-white min-h-screen p-6 text-black font-texte">
-    <h1 class="text-3xl font-titre text-center mb-6 uppercase">MON COMPTE</h1>
+    <!-- Barre du haut -->
+    <div class="flex justify-center items-center mb-4">
+      <img src="/logo-dstrk.png" alt="Logo" class="w-12" />
+    </div>
+    <h1 class="text-xl font-titre text-center mb-6 uppercase">Mon profil</h1>
 
-    <h2 class="text-xl font-titre mb-4">Données personnelles</h2>
+    <h2 class="text-lb font-titre mb-4">Données personnelles</h2>
 
     <form class="space-y-4" v-if="!chargement">
       <input

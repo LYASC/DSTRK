@@ -46,6 +46,17 @@ const routes = [
     component: () => import("@/views/Communaute.vue"),
   },
   {
+    path: "/commandes",
+    name: "Commandes",
+    component: () => import("@/views/Commandes.vue"), // Crée ce fichier si besoin
+  },
+  {
+    path: "/collection",
+    name: "Collection",
+    component: () => import("@/views/Collection.vue"), // Crée ce fichier si besoin
+  },
+
+  {
     path: "/post/:id",
     name: "CommentairesPost",
     component: () => import("@/views/CommentairesPost.vue"),

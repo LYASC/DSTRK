@@ -7,7 +7,7 @@
 
     <!-- Titre -->
     <h1 class="text-xl font-titre font-semibold uppercase mb-4 text-center">
-      ESPACE COMMUNAUTAIRE DSTRK
+      Espace communautaire
     </h1>
 
     <!-- Sous-texte -->

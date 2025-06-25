@@ -57,7 +57,7 @@ export class CommentairesService {
   async supprimerCommentaire(commentaireId: number, utilisateurId: number) {
     const com = await this.commentaireRepo.findOne({
       where: { id: commentaireId },
-      relations: ['utilisateur', 'post'],
+      relations: ['utilisateur', 'post', 'post.utilisateur'],
     });
 
     if (!com) throw new NotFoundException('Commentaire introuvable');

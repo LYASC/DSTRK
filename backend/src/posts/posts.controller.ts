@@ -57,18 +57,26 @@ export class PostsController {
     );
   }
 
+  // Liste des posts
   @Get()
   lister() {
     return this.postsService.listerPosts();
   }
 
+  // Détail d’un post par ID (utilisé pour vérifier l’auteur dans CommentairesPost.vue)
+  @Get(':id')
+  getById(@Param('id') id: number) {
+    return this.postsService.getById(+id);
+  }
+
+  // Supprimer un post
   @UseGuards(JwtGuard)
   @Delete(':id')
   supprimer(@Req() req, @Param('id') id: number) {
     return this.postsService.supprimerPost(+id, req.utilisateur.id);
   }
 
-  // Modifier le post avec nouvelle image possible
+  // Modifier un post avec nouvelle image possible
   @UseGuards(JwtGuard)
   @Patch(':id')
   @UseInterceptors(

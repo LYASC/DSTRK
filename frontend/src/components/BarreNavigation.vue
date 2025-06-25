@@ -4,7 +4,16 @@
   >
     <ul class="flex justify-around items-center h-16">
       <li>
-        <RouterLink to="/" class="flex flex-col items-center text-sm">
+        <RouterLink
+          to="/mon-espace-client"
+          class="flex flex-col items-center text-sm"
+        >
+          <span class="material-icons">home</span>
+          Accueil
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/commandes" class="flex flex-col items-center text-sm">
           <span class="material-icons">shopping_cart</span>
           Commandes
         </RouterLink>
